@@ -16,15 +16,19 @@ export default class AuthController {
       await auth.use('web').login(user)
 
       session.flash({
-        type: 'success',
-        message: 'Login successful.',
+        notification: {
+          type: 'success',
+          message: 'Login successful.',
+        },
       })
 
       return response.redirect('/')
     } catch (error) {
       session.flash({
-        type: 'error',
-        message: 'Invalid email or password.',
+        notification: {
+          type: 'error',
+          message: 'Invalid email or password.',
+        },
       })
 
       return response.redirect().back()

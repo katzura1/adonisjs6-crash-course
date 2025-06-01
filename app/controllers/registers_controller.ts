@@ -14,8 +14,10 @@ export default class RegistersController {
 
     await auth.use('web').login(user)
     session.flash({
-      type: 'success',
-      message: 'Registration successful.',
+      notification: {
+        type: 'success',
+        message: 'Registration successful.',
+      },
     })
 
     return response.redirect('/')
