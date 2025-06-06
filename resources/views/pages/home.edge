@@ -117,18 +117,54 @@
 
                 <!-- Post Footer -->
                 <div class="mt-4 flex justify-between">
-                    <div class="flex items-center text-gray-500">
-                        <span class="hover:text-red-500 focus:outline-none mr-1">
-                            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
-                                <path
-                                    fill-rule="evenodd"
-                                    d="M3.172 5.172a4 4 0 015.656 0L10 6.343l1.172-1.171a4 4 0 115.656 5.656L10 17.657l-6.828-6.829a4 4 0 010-5.656z"
-                                    clip-rule="evenodd"
-                                />
-                            </svg>
-                        </span>
-                        <span class="text-sm">{{ post.likes || 0 }}</span>
-                    </div>
+                    @if(auth.isAuthenticated)
+                        @if(await auth.user.hasLikedPost(post.id))
+                            <form action="/posts/{{ post.id }}/like?_method=DELETE" method="POST" class="flex items-center">
+                                {{ csrfField() }}
+                                <button type="submit" class="flex items-center text-red-500 hover:text-gray-600 focus:outline-none">
+                                    <span class="mr-1">
+                                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+                                            <path
+                                                fill-rule="evenodd"
+                                                d="M3.172 5.172a4 4 0 015.656 0L10 6.343l1.172-1.171a4 4 0 115.656 5.656L10 17.657l-6.828-6.829a4 4 0 010-5.656z"
+                                                clip-rule="evenodd"
+                                            />
+                                        </svg>
+                                    </span>
+                                    <span class="text-sm">{{ post.$extras.likes_count || 0 }}</span>
+                                </button>
+                            </form>
+                        @else
+                            <form action="/posts/{{ post.id }}/like" method="POST" class="flex items-center">
+                                {{ csrfField() }}
+                                <button type="submit" class="flex items-center text-gray-500 hover:text-red-600 focus:outline-none">
+                                    <span class="mr-1">
+                                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+                                            <path
+                                                fill-rule="evenodd"
+                                                d="M3.172 5.172a4 4 0 015.656 0L10 6.343l1.172-1.171a4 4 0 115.656 5.656L10 17.657l-6.828-6.829a4 4 0 010-5.656z"
+                                                clip-rule="evenodd"
+                                            />
+                                        </svg>
+                                    </span>
+                                    <span class="text-sm">{{ post.$extras.likes_count || 0 }}</span>
+                                </button>
+                            </form>
+                        @end
+                    @else
+                        <div class="flex items-center text-gray-500">
+                            <span class="hover:text-red-500 focus:outline-none mr-1">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+                                    <path
+                                        fill-rule="evenodd"
+                                        d="M3.172 5.172a4 4 0 015.656 0L10 6.343l1.172-1.171a4 4 0 115.656 5.656L10 17.657l-6.828-6.829a4 4 0 010-5.656z"
+                                        clip-rule="evenodd"
+                                    />
+                                </svg>
+                            </span>
+                            <span class="text-sm">{{ post.$extras.likes_count || 0 }}</span>
+                        </div>
+                    @end
                     <p class="text-xs text-end text-gray-500">
                         {{ (post.createdAt.equals(post.updatedAt) ? 'Created at' : 'Updated at') + ' '+ post.updatedAt.toRelative() }}
                     </p>

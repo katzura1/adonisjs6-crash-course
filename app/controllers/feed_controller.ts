@@ -6,7 +6,7 @@ export default class FeedController {
     await auth.check()
     // const user = auth.user
 
-    const posts = await Post.query().orderBy('createdAt', 'desc').preload('user')
+    const posts = await Post.query().orderBy('createdAt', 'desc').preload('user').withCount('likes')
     // .where('userId', user ? user.id : 0)
 
     return view.render('pages/home', {
