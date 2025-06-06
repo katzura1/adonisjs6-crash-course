@@ -1,10 +1,13 @@
 @import 'tailwindcss';
-@import '../../node_modules/preline/variants.css';
+
+@import 'preline/variants.css';
+@source "../../node_modules/preline/dist/*.js";
+
 @plugin '@tailwindcss/forms';
 
 @theme {
   --font-sans: 'Instrument Sans', 'sans-serif';
-  --color-primary: #5a45ff;
+  --color-primary: rgb(32, 7, 225);
   --color-primary-ighter: #a599ff;
   --color-sand-1: #fdfdfc;
   --color-sand-2: #f9f9f8;

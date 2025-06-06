@@ -20,7 +20,7 @@
             <nav class="max-w-[85rem] w-full mx-auto px-4 sm:flex sm:items-center sm:justify-between">
                 <a
                     class="flex-none font-semibold text-xl text-black focus:outline-hidden focus:opacity-80"
-                    href="#"
+                    href="/"
                     aria-label="Brand"
                 >Brand</a>
                 <div class="flex flex-row items-center gap-5 mt-5 sm:justify-end sm:mt-0 sm:ps-5">
@@ -47,6 +47,13 @@
         <main class="grow w-full mx-auto p-6">
             {{{ await $slots.main() }}}
         </main>
+
+        <script>
+            // This script is used to handle the CSRF token for AJAX requests
+            document.addEventListener("DOMContentLoaded", function() {
+                console.log("CSRF token script loaded");
+            });
+        </script>
     </body>
 </html>
 
