@@ -27,7 +27,7 @@
                     @eval(await auth.check())
                     @if(auth.isAuthenticated)
                         <div>
-                            <span>{{ auth.user.name }}</span>
+                            <a href="{{ route('profile', {username: auth.user.username}) }}">{{ auth.user.name }}</a>
                         </div>
 
                         <form action="/logout?_method=DELETE" method="POST">
